@@ -47,6 +47,23 @@ namespace dynamicMatrices {
       }
       return *this;
     }
+    dynamicMatrix &operator*= (const T A) {
+      for (size_t I = 0; I < ROWS_ * COLUMNS_; ++I) {
+        data_[I] *= A;
+      }
+      return *this;
+    }
+
+    dynamicMatrix operator* (const T A) {
+      dynamicMatrix toret (this->ROWS_, this->COLUMNS_);
+      for (size_t I = 0; I < this->ROWS_ * this->COLUMNS_; ++I) {
+        toret.data_[I] = this->data_[I] * A;
+      }
+      return toret;
+    }
+    template <typename TT>
+    friend dynamicMatrix<TT> operator* (const TT A, const dynamicMatrix<TT> &);
+
     virtual void swap (dynamicMatrix &other) {
       std::swap (ROWS_, other.ROWS_);
       std::swap (COLUMNS_, other.COLUMNS_);
@@ -97,6 +114,14 @@ namespace dynamicMatrices {
       }
     }
     return toReturn;
+  }
+  template <typename T>
+  dynamicMatrix<T> operator* (const T A, const dynamicMatrix<T> &orig) {
+    dynamicMatrix<T> toret (orig.ROWS_, orig.COLUMNS_);
+    for (size_t I = 0; I < orig.ROWS_ * orig.COLUMNS_; ++I) {
+      toret.data_[I] = orig.data_[I] * A;
+    }
+    return toret;
   }
 
   template <typename T>
