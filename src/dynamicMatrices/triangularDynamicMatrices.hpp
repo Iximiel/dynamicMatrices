@@ -1,7 +1,6 @@
 #ifndef TRIANGULARDYNAMICMATRIX_HPP
 #define TRIANGULARDYNAMICMATRIX_HPP
 //#include <iostream>
-#include "baseDynamicMatrix.hpp"
 namespace dynamicMatrices {
   template <typename T>
   class triangularMatrix {
