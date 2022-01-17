@@ -134,3 +134,31 @@ TEST_CASE (
     }
   }
 }
+
+TEST_CASE (
+  "Testing Dynamic Matrix Multiplication by scalar",
+  "[Matrix][MultiplicationScalar]") {
+  dynamicMatrices::dynamicMatrix<int> Mat5x2 (5, 2);
+  {
+    int n = 0;
+    for (int i = 0; i < Mat5x2.Rows (); ++i) {
+      for (int j = 0; j < Mat5x2.Columns (); ++j) {
+        Mat5x2[i][j] = n;
+        ++n;
+      }
+    }
+  }
+  constexpr int mulby = 5;
+  dynamicMatrices::dynamicMatrix<int> Mat5x2Orig = Mat5x2;
+  dynamicMatrices::dynamicMatrix<int> Mat5x2OMult = Mat5x2 * mulby;
+  dynamicMatrices::dynamicMatrix<int> MultMat5x2 = mulby * Mat5x2;
+
+  Mat5x2 *= mulby;
+  for (int i = 0; i < Mat5x2Orig.Rows (); ++i) {
+    for (int j = 0; j < Mat5x2Orig.Columns (); ++j) {
+      REQUIRE (Mat5x2[i][j] == mulby * Mat5x2Orig[i][j]);
+      REQUIRE (Mat5x2[i][j] == Mat5x2OMult[i][j]);
+      REQUIRE (Mat5x2[i][j] == MultMat5x2[i][j]);
+    }
+  }
+}
