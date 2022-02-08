@@ -9,7 +9,7 @@ namespace dynamicMatrices {
     inline size_t address (size_t i, size_t j) const {
       if (i < j)
         std::swap (i, j);
-      return (i * (i - 1) / 2) + j;
+      return (i * (i - 1)) / 2 + j;
     }
     size_t dim () const { return dim_; }
     triangularMatrix (size_t dim)
