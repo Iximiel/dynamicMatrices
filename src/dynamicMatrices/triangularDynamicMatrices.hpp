@@ -39,9 +39,7 @@ namespace dynamicMatrices {
     }
 
     void swap (triangularMatrix &other) {
-      if (dim_ != other.dim_) {
-        throw "Error in triangularMatrix swap: different size";
-      }
+      std::swap (this->dim_, other.dim_);
       std::swap (this->data_, other.data_);
     }
 
