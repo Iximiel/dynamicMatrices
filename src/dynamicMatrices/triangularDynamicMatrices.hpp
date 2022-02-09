@@ -51,7 +51,7 @@ namespace dynamicMatrices {
 
   private:
     T *data_{nullptr};
-    const size_t dim_{0};
+    size_t dim_{0};
   };
 } // namespace dynamicMatrices
 #endif // TRIANGULARDYNAMICMATRIX_HPP
