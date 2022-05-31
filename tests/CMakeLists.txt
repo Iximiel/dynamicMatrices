@@ -14,7 +14,7 @@ include(FetchContent)
 # declare Catch2
 FetchContent_Declare(Catch2                              # name of the content
   GIT_REPOSITORY https://github.com/catchorg/Catch2.git  # the repository
-  GIT_TAG        v2.13.4                                 # the tag
+  GIT_TAG        v3.0.1                               # the tag
   )
 
 # make available
@@ -27,8 +27,8 @@ if(NOT TARGET DynamicMatrices::DynamicMatrices)
 endif()
 
 # testing binary
-add_executable(DM_test test.cxx MatricesTests.cpp)
-target_link_libraries(DM_test PRIVATE DynamicMatrices::DynamicMatrices Catch2::Catch2)
+add_executable(DM_test MatricesTests.cpp)
+target_link_libraries(DM_test PRIVATE DynamicMatrices::DynamicMatrices Catch2::Catch2WithMain )
 target_include_directories(DM_test
   PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}
@@ -39,8 +39,8 @@ target_include_directories(DM_test
 # enable testing functionality
 enable_testing()
 
-# define test
-add_test(
-  NAME DYNAMICMATRICES
-  COMMAND $<TARGET_FILE:DM_test> --success
-  )
+include(CTest)
+message(${catch2_SOURCE_DIR})
+list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+include(Catch)
+catch_discover_tests(DM_test)
